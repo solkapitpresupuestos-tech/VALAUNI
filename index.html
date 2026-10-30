@@ -1,1083 +1,871 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valauni | Carpintería PVC VEKA y Aluminio — Puerto de Alcudia, Mallorca</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-    <style>
-        :root {
-            --nav-bg: #191919;
-            --footer-bg: #191919;
-            --white: #FFFFFF;
-            --off-white: #F8F9FA;
-            --light-gray: #F2F4F5;
-            --border: #E8EAED;
-            --text-dark: #1A1A2E;
-            --text-body: #4A4A6A;
-            --text-light: #8A8A9A;
-            --accent: #1A1A1A;
-            --accent-light: #F0F0F0;
-            --gold: #C8A96E;
-            --veka-blue: #003A70;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-body);
-            background: var(--white);
-            line-height: 1.6;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-dark);
-        }
-        
-        .nav-sticky {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: var(--nav-bg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .section-spacing {
-            padding: 80px 0;
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        
-        .btn-primary {
-            background: var(--accent);
-            color: var(--white);
-            padding: 14px 32px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-primary:hover {
-            background: #333;
-            transform: translateY(-2px);
-        }
-        
-        .btn-outline {
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            background: transparent;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            text-decoration: none;
-        }
-        
-        .btn-outline:hover {
-            background: var(--accent);
-            color: var(--white);
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        
-        .badge-gold {
-            background: var(--gold);
-            color: var(--white);
-        }
-        
-        .badge-outline {
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-        
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: #E0E0E0;
-            outline: none;
-        }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--accent);
-            cursor: pointer;
-        }
-        
-        input[type="range"]::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--accent);
-            cursor: pointer;
-            border: none;
-        }
-        
-        .menu-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--nav-bg);
-            min-width: 250px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            padding: 10px 0;
-        }
-        
-        .menu-item:hover .menu-dropdown {
-            display: block;
-        }
-        
-        .menu-dropdown a {
-            display: block;
-            padding: 10px 20px;
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background 0.2s ease;
-        }
-        
-        .menu-dropdown a:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-            
-            .section-spacing {
-                padding: 50px 0;
-            }
-            
-            #mobile-menu-btn {
-                display: block !important;
-            }
-        }
-        
-        .animate-fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .animate-fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        .image-gallery img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-        
-        .image-gallery img:hover {
-            transform: scale(1.05);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valauni | Carpintería PVC VEKA y Aluminio — Puerto de Alcudia, Mallorca</title>
+<meta name="description" content="Ventanas PVC VEKA, aluminio Cortizo, barandillas, pérgolas bioclimáticas y protección solar Saxun en Mallorca. Material en stock, medición gratis y montaje sin retrasos desde el Puerto de Alcudia.">
+<meta name="theme-color" content="#191919">
+<link rel="canonical" href="https://valauni.net/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://valauni.net/">
+<meta property="og:title" content="Valauni · Carpintería PVC VEKA y Aluminio en Mallorca">
+<meta property="og:description" content="Ventanas, barandillas, pérgolas y protección solar. Material en stock y montaje sin retrasos en el norte de Mallorca.">
+<meta property="og:image" content="https://valauni.net/og-valauni.jpg">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"VALAUNI CARPINTERIA S.L.","url":"https://valauni.net/","image":"https://valauni.net/og-valauni.jpg","telephone":"+34643143809","email":"solkapit@valauni.net","address":{"@type":"PostalAddress","streetAddress":"Avenida Tucán 33 E","addressLocality":"Puerto de Alcudia","postalCode":"07400","addressRegion":"Illes Balears","addressCountry":"ES"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"14:00"}],"sameAs":["https://www.instagram.com/valaunioficial/","https://www.facebook.com/profile.php?id=61571740704965"]}
+</script>
+<style>
+:root{
+  --ink:#191919; --ink-2:#22262B; --slate:#47555F;
+  --white:#FFFFFF; --stone:#F5F4F1; --stone-2:#ECEAE5;
+  --heading:#16161A; --text:#3B3C44; --muted:#5C5E69;
+  --gold:#C8A96E; --gold-ink:#7E6128; --gold-soft:#F3ECDD;
+  --bad:#A23A2C; --good:#2F6B3A;
+  --radius:4px; --wrap:1200px; --gutter:clamp(20px,4vw,32px);
+  --ease-out:cubic-bezier(.23,1,.32,1); --nav-h:76px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px);-webkit-text-size-adjust:100%}
+body{font:400 17px/1.65 'Inter',system-ui,sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.12;text-wrap:balance}
+h2{font-size:clamp(2rem,3.6vw,3rem);font-weight:800;letter-spacing:-.025em}
+h3{font-size:1.35rem;font-weight:700;letter-spacing:-.015em}
+h4{font-size:1.06rem;font-weight:700}
+p{max-width:68ch}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.section{padding:clamp(72px,10vw,128px) 0}
+.tone{background:var(--stone)}
+.lead{font-size:1.125rem;color:var(--muted)}
+.ico{width:22px;height:22px;stroke-width:1.75;flex-shrink:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Section heading: architectural split */
+.head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:clamp(40px,6vw,64px)}
+.head p{font-size:1.125rem;color:var(--muted)}
+.tag{display:block;font:600 .95rem/1.4 'Inter',sans-serif;color:var(--gold-ink);margin-bottom:10px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:var(--radius);font:600 1rem/1 'Inter',sans-serif;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn .ico{width:20px;height:20px}
+.btn-primary{background:var(--ink);color:var(--white)}
+.btn-outline{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-wa{background:#0E7A3A;color:#fff}
+.nav-links .btn-gold,.nav-links .btn-gold:hover{color:var(--ink)}
+.btn-light{border-color:rgba(255,255,255,.5);color:#fff}
+@media (hover:hover) and (pointer:fine){
+  .btn-primary:hover{background:#3A3A3A}
+  .btn-outline:hover{background:var(--ink);color:var(--white)}
+  .btn-gold:hover{background:#D6BB86}
+  .btn-wa:hover{background:#0B6630}
+  .btn-light:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+}
+
+/* Nav */
+.nav{position:fixed;inset:0 0 auto;z-index:100;background:var(--ink);transition:box-shadow 200ms ease}
+.nav.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.brand img{width:44px;height:44px}
+.brand span{font:800 1.4rem/1 'Montserrat',sans-serif;letter-spacing:.04em}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none}
+.nav-links>li>a,.nav-links>li>button{color:rgba(255,255,255,.82);text-decoration:none;font:600 .82rem/1 'Inter',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:none;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:10px 0;transition:color 160ms ease}
+.nav-links>li>a.active{color:#fff;box-shadow:inset 0 -2px 0 var(--gold)}
+@media (hover:hover){.nav-links>li>a:hover,.nav-links>li>button:hover{color:#fff}}
+.nav-links .btn{min-height:42px;padding:0 20px;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase}
+.dd{position:relative}
+.dd .ico{width:16px;height:16px;transition:transform 200ms var(--ease-out)}
+.dd[data-open] .ico{transform:rotate(180deg)}
+.dd-menu{position:absolute;top:calc(100% + 18px);left:50%;width:520px;margin-left:-260px;display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;padding:14px;background:var(--ink);border-radius:var(--radius);box-shadow:0 18px 40px rgba(0,0,0,.35);list-style:none;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top center;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out),visibility 0s 180ms}
+.dd[data-open] .dd-menu{opacity:1;visibility:visible;transform:none;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out)}
+.dd-menu a{display:block;padding:10px 12px;border-radius:3px;color:rgba(255,255,255,.85);text-decoration:none;font-size:.92rem}
+@media (hover:hover){.dd-menu a:hover{background:rgba(255,255,255,.08);color:#fff}}
+.burger{display:none;width:48px;height:48px;align-items:center;justify-content:center;background:none;border:0;color:#fff;cursor:pointer}
+.burger .ico{width:28px;height:28px}
+
+/* Mobile drawer */
+.drawer{position:fixed;inset:var(--nav-h) 0 0;z-index:99;background:var(--ink);overflow-y:auto;padding:12px var(--gutter) 120px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out),visibility 0s 200ms}
+.drawer[data-open]{opacity:1;visibility:visible;transform:none;transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out)}
+.drawer a{display:block;color:#fff;text-decoration:none}
+.drawer .main a{font:700 1.5rem/1.2 'Montserrat',sans-serif;padding:14px 0}
+.drawer h4{color:var(--gold);font:600 .9rem/1 'Inter',sans-serif;margin:24px 0 8px}
+.drawer .prods{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.drawer .prods a{font-size:1rem;color:rgba(255,255,255,.82);padding:10px 0}
+
+/* Hero */
+.hero{padding:calc(var(--nav-h) + clamp(40px,7vw,88px)) 0 clamp(56px,8vw,96px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(40px,6vw,80px);align-items:center}
+.hero h1{font-size:clamp(2.6rem,5.4vw,4.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-bottom:28px}
+.hero h1 em{font-style:normal;color:var(--gold-ink)}
+.hero .lead{font-size:clamp(1.05rem,1.4vw,1.2rem);margin-bottom:36px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.trust{display:flex;align-items:center;gap:10px;margin-top:28px;font-size:.95rem;color:var(--muted)}
+.trust .ico{color:var(--gold-ink);width:18px;height:18px}
+.hero-media{position:relative}
+.hero-media img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;margin-top:clamp(48px,6vw,72px);background:var(--stone-2);border-radius:var(--radius);overflow:hidden}
+.stat{background:var(--stone);padding:22px 20px}
+.stat b{display:block;font:800 clamp(1.5rem,2.4vw,2rem)/1.1 'Montserrat',sans-serif;color:var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:6px;font-size:.92rem;color:var(--muted)}
+
+/* Brands */
+.brands{background:var(--ink);color:#fff;padding:36px 0}
+.brands .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.brands p{color:rgba(255,255,255,.7);font-size:.95rem}
+.brands ul{display:flex;flex-wrap:wrap;gap:16px 44px;list-style:none}
+.brands li{font:800 1.6rem/1 'Montserrat',sans-serif;letter-spacing:.02em;color:#fff}
+.brands li:first-child{color:#8FB4DB}
+
+/* Why */
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(32px,4vw,56px) clamp(24px,4vw,48px)}
+.why .ico{width:30px;height:30px;color:var(--gold-ink);margin-bottom:18px}
+.why h3{margin-bottom:10px}
+.why p{color:var(--muted)}
+
+/* Split blocks */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,72px);align-items:start}
+.split.center{align-items:center}
+.checks{list-style:none;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start}
+.checks .ico{color:var(--gold-ink);width:20px;height:20px;margin-top:3px}
+.panel{background:var(--white);border-radius:var(--radius);padding:clamp(24px,3vw,36px)}
+.tone .panel{background:var(--white)}
+.panel h4,.panel .h-sm{margin-bottom:16px}
+.h-sm{font-size:1.06rem}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius)}
+.gallery img:first-child{grid-column:1/-1;aspect-ratio:16/9}
+
+/* Softline */
+.models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(40px,5vw,56px)}
+.model{background:var(--white);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column}
+.model.featured{background:var(--ink);color:rgba(255,255,255,.85)}
+.model.featured h3{color:#fff}
+.model .label{font-size:.85rem;font-weight:600;color:var(--gold-ink);margin-bottom:8px}
+.model.featured .label{color:var(--gold)}
+.model p{font-size:.98rem;margin:10px 0 20px}
+.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:auto}
+.specs div{background:var(--stone);border-radius:3px;padding:10px 12px}
+.model.featured .specs div{background:rgba(255,255,255,.07)}
+.specs dt{font-size:.78rem;color:var(--muted)}
+.model.featured .specs dt{color:rgba(255,255,255,.65)}
+.specs dd{font:700 1rem/1.3 'Montserrat',sans-serif;color:var(--heading);font-variant-numeric:tabular-nums}
+.model.featured .specs dd{color:#fff}
+.note{font-size:.92rem;color:var(--muted);margin-top:16px}
+
+/* Figures */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.fig{background:var(--stone);border-radius:var(--radius);padding:20px}
+.fig span{display:block;font-size:.9rem;color:var(--muted)}
+.fig b{display:block;font:800 1.9rem/1.15 'Montserrat',sans-serif;color:var(--heading);letter-spacing:-.02em}
+.media img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:var(--radius)}
+
+/* Railings */
+.rail h3{font-size:1.5rem;margin-bottom:6px}
+.rail .sub{color:var(--muted);margin-bottom:24px}
+.rows{list-style:none}
+.rows li{padding:14px 0}
+.rows li+li{margin-top:2px}
+.rows h4{margin-bottom:4px}
+.rows p{font-size:.96rem;color:var(--muted)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;list-style:none}
+.pills li{background:var(--gold-soft);color:#5C4519;font-size:.88rem;font-weight:500;padding:6px 12px;border-radius:3px}
+
+/* Saxun */
+.feature-figs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:clamp(40px,5vw,56px)}
+.feature-figs figure{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--ink)}
+.feature-figs img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.feature-figs figcaption{padding:22px 24px 26px;color:rgba(255,255,255,.82)}
+.feature-figs h3{color:#fff;margin-bottom:6px}
+.prod-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--stone-2);border-radius:var(--radius);overflow:hidden}
+.prod{background:var(--white);padding:26px 24px;transition:background-color 200ms ease}
+@media (hover:hover){.prod:hover{background:var(--stone)}}
+.prod .ico{width:26px;height:26px;color:var(--gold-ink);margin-bottom:14px}
+.prod h3{font-size:1.05rem;margin-bottom:6px}
+.prod p{font-size:.95rem;color:var(--muted)}
+
+/* Savings */
+.compare{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:stretch;margin-bottom:clamp(40px,5vw,56px)}
+.cmp{border-radius:var(--radius);padding:clamp(24px,3vw,36px);background:var(--white)}
+.cmp.after{background:var(--ink);color:rgba(255,255,255,.75)}
+.cmp h3{font-size:1.05rem;margin-bottom:24px}
+.cmp h3 small{display:block;font:600 .85rem/1.4 'Inter',sans-serif;margin-bottom:4px}
+.cmp.before h3 small{color:var(--bad)}
+.cmp.after h3{color:#fff}
+.cmp.after h3 small{color:var(--gold)}
+.cmp dl{display:grid;gap:16px}
+.cmp dt{font-size:.88rem}
+.cmp dd{font:800 1.7rem/1.15 'Montserrat',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cmp.before dd{color:var(--bad)}
+.cmp.after dd{color:#fff}
+.cmp dd small{font-size:.9rem;font-weight:600;color:var(--gold)}
+.save{background:var(--gold);color:var(--ink);border-radius:var(--radius);padding:24px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:170px}
+.save span{font-size:.9rem;font-weight:600}
+.save b{font:800 2.8rem/1 'Montserrat',sans-serif;letter-spacing:-.03em;margin:6px 0}
+.charts{display:grid;gap:16px}
+.chart-card{background:var(--white);border-radius:var(--radius);padding:clamp(20px,3vw,36px)}
+.chart-card h3{font-size:1.15rem;margin-bottom:16px}
+.chart{width:100%;height:380px}
+
+/* Acoustic */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);background:var(--white)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:560px}
+th{background:var(--ink);color:#fff;font:600 .9rem/1.3 'Inter',sans-serif;text-align:center;padding:16px}
+th:first-child,td:first-child{text-align:left}
+td{padding:16px;text-align:center;border-bottom:1px solid var(--stone-2)}
+tr:last-child td{border-bottom:0}
+td.yes{color:var(--good);font-weight:600}
+td.no{color:var(--bad)}
+.scale{margin-top:clamp(40px,5vw,56px)}
+.scale h3{margin-bottom:28px}
+.bar{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.bar div{padding:14px 12px 12px;color:#fff;font-size:.88rem;font-weight:500}
+.bar b{display:block;font:700 1.05rem/1.2 'Montserrat',sans-serif}
+.bar div:nth-child(1){background:#D5D9DC;color:var(--heading)}.bar div:nth-child(2){background:#AEB6BC;color:var(--heading)}.bar div:nth-child(3){background:#4E5D68}.bar div:nth-child(4){background:#343F47}.bar div:nth-child(5){background:#1C2227}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.duo div{border-radius:var(--radius);padding:28px;background:var(--stone)}
+.duo div.us{background:var(--ink);color:rgba(255,255,255,.8)}
+.duo span{font-size:.95rem}
+.duo b{display:block;font:800 3rem/1.05 'Montserrat',sans-serif;letter-spacing:-.03em;color:var(--heading);margin-top:6px}
+.duo .us b{color:var(--gold)}
+
+/* Calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.calc-box{background:var(--white);border-radius:var(--radius);padding:clamp(24px,4vw,44px)}
+.calc label{display:block;font-weight:600;color:var(--heading);margin-bottom:18px}
+.calc output{display:block;font:800 clamp(2.6rem,5vw,3.6rem)/1 'Montserrat',sans-serif;color:var(--heading);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:18px}
+.calc output small{font-size:1.2rem;font-weight:600;color:var(--muted);margin-left:6px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:var(--stone-2);outline-offset:8px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--ink);border:4px solid var(--gold);cursor:grab}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--ink);border:4px solid var(--gold);cursor:grab}
+.savings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin:28px 0 2px;background:var(--stone-2);border-radius:var(--radius) var(--radius) 0 0;overflow:hidden}
+.savings div{background:var(--stone);padding:16px;text-align:center}
+.savings span,.payback span{display:block;font-size:.85rem;color:var(--muted)}
+.savings b{font:800 1.5rem/1.2 'Montserrat',sans-serif;color:var(--good);font-variant-numeric:tabular-nums}
+.payback{background:var(--ink);color:#fff;text-align:center;padding:18px;border-radius:0 0 var(--radius) var(--radius)}
+.payback span{color:rgba(255,255,255,.7)}
+.payback b{font:800 1.8rem/1.2 'Montserrat',sans-serif;color:var(--gold)}
+
+/* Contact */
+.contact{background:var(--ink-2);color:rgba(255,255,255,.85)}
+.contact h2{color:#fff;margin-bottom:16px}
+.contact .lead{color:rgba(255,255,255,.75);margin-bottom:40px}
+.info{list-style:none;display:grid;gap:22px;margin-bottom:36px}
+.info li{display:flex;gap:16px;align-items:flex-start}
+.info .ico{color:var(--gold);margin-top:4px}
+.info span{display:block;font-size:.88rem;color:rgba(255,255,255,.6)}
+.info b,.info a{font-size:1.1rem;font-weight:600;color:#fff;text-decoration:none}
+.social{display:flex;gap:10px;margin-top:20px}
+.social a{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:#fff;transition:background-color 200ms ease}
+@media (hover:hover){.social a:hover{background:rgba(255,255,255,.18)}}
+.map{border-radius:var(--radius);overflow:hidden;min-height:460px;height:100%;background:#2b3036}
+.map iframe{width:100%;height:100%;min-height:460px;border:0;filter:grayscale(1) contrast(1.05)}
+
+/* Footer */
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 0 28px;font-size:.95rem}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.foot .brand span{font-size:1.25rem}
+.foot p{margin-top:16px}
+.foot h4{color:#fff;margin-bottom:14px}
+.foot ul{list-style:none;display:grid;gap:8px}
+.foot a{color:rgba(255,255,255,.75);text-decoration:none}
+@media (hover:hover){.foot a:hover{color:#fff}}
+.foot li{display:flex;gap:10px;align-items:center}
+.foot .ico{width:16px;height:16px;color:var(--gold)}
+.legal{background:rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:.88rem;color:rgba(255,255,255,.6)}
+
+/* Floating contact */
+.fab{position:fixed;right:24px;bottom:24px;z-index:90;width:60px;height:60px;border-radius:50%;background:#0E7A3A;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(0,0,0,.25);transition:transform 160ms var(--ease-out)}
+.fab:active{transform:scale(.94)}
+.fab svg{width:30px;height:30px}
+.mbar{display:none}
+
+/* Reveal (content stays visible without JS) */
+.js [data-reveal]{opacity:0;transform:translateY(20px);transition:opacity 700ms var(--ease-out),transform 700ms var(--ease-out);transition-delay:var(--d,0ms)}
+.js [data-reveal].in{opacity:1;transform:none}
+
+/* Responsive */
+@media (max-width:1024px){
+  .nav-links{display:none}
+  .burger{display:inline-flex}
+  .why,.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .models{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:820px){
+  :root{--nav-h:68px}
+  body{font-size:16px;padding-bottom:76px}
+  .head,.hero-grid,.split,.compare,.calc,.feature-figs,.duo,.foot{grid-template-columns:1fr}
+  .hero-media{order:-1}
+  .hero-media img{aspect-ratio:4/3}
+  .save{flex-direction:row;gap:12px;padding:18px}
+  .save b{font-size:2.2rem;margin:0}
+  .chart{height:300px}
+  .map,.map iframe{min-height:320px}
+  .fab{display:none}
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;inset:auto 0 0;z-index:95;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--ink)}
+  .mbar .btn{min-height:50px;padding:0 12px}
+  .brand img{width:38px;height:38px}
+  .brand span{font-size:1.2rem}
+}
+@media (max-width:560px){
+  .why,.prod-grid,.figs,.gallery{grid-template-columns:1fr}
+  .gallery img:first-child{grid-column:auto}
+  .specs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ctas .btn{flex:1 1 100%}
+  .bar{grid-template-columns:1fr}
+  .savings b{font-size:1.25rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js [data-reveal]{transform:none;transition:opacity 300ms ease}
+  *,*::before,*::after{transition-duration:0s!important}
+  .js [data-reveal]{transition-duration:300ms!important}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="nav-sticky">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <img src="logo-valauni.png" alt="Valauni - Carpintería PVC y Aluminio" style="height: 52px; width: auto;">
-            <span style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--white); letter-spacing: 1px;">VALAUNI</span>
-        </div>
-        
-        <div class="nav-menu" style="display: flex; gap: 30px; align-items: center;">
-            <a href="#inicio" style="color: var(--white); text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.5px;">INICIO</a>
-            <a href="#veka" style="color: var(--white); text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.5px;">PVC VEKA</a>
-            <a href="#cortizo" style="color: var(--white); text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.5px;">ALUMINIO CORTIZO</a>
-            <div class="menu-item" style="position: relative;">
-                <a href="#productos" style="color: var(--white); text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.5px;">PRODUCTOS ▾</a>
-                <div class="menu-dropdown">
-                    <a href="#barandillas">Barandillas Aluminio</a>
-                    <a href="#barandillas">Barandillas Cristal</a>
-                    <a href="#cristales">Cristales</a>
-                    <a href="#mallorquinas">Mallorquinas</a>
-                    <a href="#toldos">Toldos</a>
-                    <a href="#pergolas">Pérgolas</a>
-                    <a href="#estores">Estores</a>
-                    <a href="#celosias">Celosías</a>
-                    <a href="#mosquiteras">Mosquiteras</a>
-                    <a href="#puertas-auto">Puertas Automáticas</a>
-                    <a href="#puertas-garaje">Puertas Garaje</a>
-                    <a href="#cortinas-cristal">Cortinas Cristal</a>
-                    <a href="#persianas">Persianas</a>
-                    <a href="#alicantinas">Alicantinas</a>
-                    <a href="#smart-home">Automatismos Smart Home</a>
-                </div>
-            </div>
-            <a href="#contacto" class="btn-primary" style="font-size: 14px; padding: 10px 24px; letter-spacing: 0.5px;">CONTACTO</a>
-        </div>
-        
-        <button id="mobile-menu-btn" style="display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer;">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-</nav>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#inicio" aria-label="Valauni, inicio">
+      <img src="logo-icon.png" alt="" width="44" height="44">
+      <span>VALAUNI</span>
+    </a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#veka">PVC VEKA</a></li>
+        <li><a href="#cortizo">Aluminio Cortizo</a></li>
+        <li class="dd" id="dd">
+          <button type="button" aria-expanded="false" aria-controls="dd-menu">Productos <i data-lucide="chevron-down" class="ico"></i></button>
+          <ul class="dd-menu" id="dd-menu">
+            <li><a href="#barandillas">Barandillas aluminio</a></li>
+            <li><a href="#barandillas">Barandillas cristal</a></li>
+            <li><a href="#pergolas">Pérgolas bioclimáticas</a></li>
+            <li><a href="#toldos">Toldos</a></li>
+            <li><a href="#mallorquinas">Mallorquinas</a></li>
+            <li><a href="#celosias">Celosías</a></li>
+            <li><a href="#persianas">Persianas</a></li>
+            <li><a href="#estores">Cortinas y estores</a></li>
+            <li><a href="#mosquiteras">Mosquiteras</a></li>
+            <li><a href="#cortinas-cristal">Cortinas de cristal</a></li>
+            <li><a href="#alicantinas">Alicantinas</a></li>
+            <li><a href="#puertas-auto">Puertas automáticas</a></li>
+            <li><a href="#puertas-garaje">Puertas de garaje</a></li>
+            <li><a href="#smart-home">Automatismos Smart Home</a></li>
+          </ul>
+        </li>
+        <li><a href="#contacto" class="btn btn-gold">Pedir presupuesto</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Abrir menú">
+      <i data-lucide="menu" class="ico"></i>
+    </button>
+  </div>
+</header>
 
-<!-- Hero Section -->
-<section id="inicio" style="padding-top: 100px; background: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 60px 20px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
-            <div>
-                <div style="display: inline-block; background: var(--off-white); color: var(--text-dark); padding: 8px 20px; border-radius: 30px; font-weight: 600; font-size: 12px; letter-spacing: 1px; margin-bottom: 25px; border: 1px solid var(--border);">
-                    📍 Puerto de Alcudia, Mallorca · Distribuidor Oficial VEKA · SAXUN · CORTIZO
-                </div>
-                <h1 style="font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; color: var(--text-dark); line-height: 1.1; margin-bottom: 25px;">
-                    Tu Carpintería de<br><span style="color: var(--gold);">Confianza</span> en Mallorca
-                </h1>
-                <p style="font-size: 19px; color: var(--text-body); line-height: 1.7; margin-bottom: 35px;">
-                    Especialistas en ventanas PVC VEKA, aluminio Cortizo, cerramientos y protección solar Saxun. Material en stock. Montajes garantizados. Sin retrasos.
-                </p>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 40px;">
-                    <a href="#contacto" class="btn-primary" style="display: inline-flex; align-items: center; gap: 10px;">
-                        Solicitar Presupuesto →
-                    </a>
-                    <a href="#productos" class="btn-outline" style="display: inline-flex; align-items: center; gap: 10px;">
-                        Ver Productos
-                    </a>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-                    <div style="text-align: center; padding: 15px; background: var(--off-white); border-radius: 8px;">
-                        <div style="font-size: 24px; font-weight: 900; color: var(--accent); font-family: 'Montserrat', sans-serif;">446€/año</div>
-                        <div style="font-size: 12px; color: var(--text-light); margin-top: 5px;">ahorrado</div>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: var(--off-white); border-radius: 8px;">
-                        <div style="font-size: 24px; font-weight: 900; color: var(--accent); font-family: 'Montserrat', sans-serif;">-75%</div>
-                        <div style="font-size: 12px; color: var(--text-light); margin-top: 5px;">pérdidas</div>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: var(--off-white); border-radius: 8px;">
-                        <div style="font-size: 24px; font-weight: 900; color: var(--accent); font-family: 'Montserrat', sans-serif;">52dB</div>
-                        <div style="font-size: 12px; color: var(--text-light); margin-top: 5px;">hasta</div>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: var(--off-white); border-radius: 8px;">
-                        <div style="font-size: 24px; font-weight: 900; color: var(--accent); font-family: 'Montserrat', sans-serif;">24h</div>
-                        <div style="font-size: 12px; color: var(--text-light); margin-top: 5px;">Stock</div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <img src="https://sspark.genspark.ai/cfimages?u1=AXfW2zD1w7PxhWwCx6v3f6fxNyNrCmNINacPHxDvik%2Fp6%2BeTnT2MBRNmwA93ps01EZTUpe5Iv%2BKTXvA7I5%2BQif2RkVYvCBp8s7G0ji1I12lj0juH7qvtKlO6K3ASCrmU%2BDK8%2BBXW7xz10A2OrW0wjaqMiQENDqjr5N8%3D&u2=06txOgI5W2OR%2Bqbe&width=2560" alt="Ventana moderna en salón luminoso" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);" loading="lazy">
-            </div>
+<div class="drawer" id="drawer" aria-label="Menú">
+  <div class="main">
+    <a href="#inicio">Inicio</a>
+    <a href="#veka">PVC VEKA</a>
+    <a href="#cortizo">Aluminio Cortizo</a>
+    <a href="#analisis">Ahorro energético</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <h4>Productos</h4>
+  <div class="prods">
+    <a href="#barandillas">Barandillas</a>
+    <a href="#pergolas">Pérgolas</a>
+    <a href="#toldos">Toldos</a>
+    <a href="#mallorquinas">Mallorquinas</a>
+    <a href="#celosias">Celosías</a>
+    <a href="#persianas">Persianas</a>
+    <a href="#estores">Estores</a>
+    <a href="#mosquiteras">Mosquiteras</a>
+    <a href="#cortinas-cristal">Cortinas cristal</a>
+    <a href="#alicantinas">Alicantinas</a>
+    <a href="#puertas-auto">Puertas automáticas</a>
+    <a href="#puertas-garaje">Puertas garaje</a>
+    <a href="#smart-home">Smart Home</a>
+  </div>
+</div>
+
+<main>
+<!-- Hero -->
+<section id="inicio" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1 data-reveal>Tu carpintería de <em>confianza</em> en Mallorca</h1>
+        <p class="lead" data-reveal style="--d:80ms">Especialistas en ventanas PVC VEKA, aluminio Cortizo, cerramientos y protección solar Saxun. Material en stock. Montajes garantizados. Sin retrasos.</p>
+        <div class="ctas" data-reveal style="--d:160ms">
+          <a href="#contacto" class="btn btn-primary">Solicitar presupuesto <i data-lucide="arrow-right" class="ico"></i></a>
+          <a href="#productos" class="btn btn-outline">Ver productos</a>
         </div>
+        <p class="trust" data-reveal style="--d:240ms"><i data-lucide="map-pin" class="ico"></i>Puerto de Alcudia, Mallorca · Distribuidor oficial VEKA, Cortizo y Saxun</p>
+      </div>
+      <div class="hero-media" data-reveal style="--d:120ms">
+        <img src="https://sspark.genspark.ai/cfimages?u1=AXfW2zD1w7PxhWwCx6v3f6fxNyNrCmNINacPHxDvik%2Fp6%2BeTnT2MBRNmwA93ps01EZTUpe5Iv%2BKTXvA7I5%2BQif2RkVYvCBp8s7G0ji1I12lj0juH7qvtKlO6K3ASCrmU%2BDK8%2BBXW7xz10A2OrW0wjaqMiQENDqjr5N8%3D&u2=06txOgI5W2OR%2Bqbe&width=2560" alt="Salón luminoso con grandes ventanales" width="1024" height="1280" fetchpriority="high">
+      </div>
     </div>
+    <div class="stats" data-reveal style="--d:200ms">
+      <div class="stat"><b>446 €/año</b><span>de ahorro energético</span></div>
+      <div class="stat"><b>−75 %</b><span>de pérdidas de calor</span></div>
+      <div class="stat"><b>52 dB</b><span>de aislamiento acústico</span></div>
+      <div class="stat"><b>24 h</b><span>material en stock</span></div>
+    </div>
+  </div>
 </section>
 
-<!-- Brands Band -->
-<section style="background: var(--off-white); padding: 40px 0;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <p style="text-align: center; color: var(--text-light); font-size: 14px; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Trabajamos con las mejores marcas</p>
-        <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
-            <div style="font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: var(--veka-blue);">VEKA</div>
-            <div style="width: 2px; height: 40px; background: var(--border);"></div>
-            <div style="font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: var(--text-dark);">CORTIZO</div>
-            <div style="width: 2px; height: 40px; background: var(--border);"></div>
-            <div style="font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: var(--text-dark);">SAXUN</div>
-            <div style="width: 2px; height: 40px; background: var(--border);"></div>
-            <div style="font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: var(--text-dark);">SIIA</div>
-            <div style="width: 2px; height: 40px; background: var(--border);"></div>
-            <div style="font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: var(--text-dark);">AENOR</div>
-        </div>
-    </div>
+<!-- Brands -->
+<section class="brands" aria-label="Marcas">
+  <div class="wrap">
+    <p>Trabajamos con las mejores marcas</p>
+    <ul>
+      <li>VEKA</li><li>CORTIZO</li><li>SAXUN</li><li>SIIA</li><li>AENOR</li>
+    </ul>
+  </div>
 </section>
 
-<!-- Why Valauni -->
-<section class="section-spacing" style="background: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">¿Por qué elegir Valauni?</h2>
-            <p style="font-size: 18px; color: var(--text-light);">Carpintería profesional en el Puerto de Alcudia, Mallorca</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 35px;">
-                <div style="font-size: 40px; margin-bottom: 20px;">⚡</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;">MATERIAL EN STOCK 24H</h3>
-                <p style="line-height: 1.7; color: var(--text-body);">Ventanas PVC VEKA, aluminio Cortizo y productos Saxun disponibles de inmediato. Sin esperas de fabricación, tu proyecto avanza al ritmo que necesita.</p>
-            </div>
-            
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 35px;">
-                <div style="font-size: 40px; margin-bottom: 20px;">📅</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;">MONTAJES SIN RETRASOS</h3>
-                <p style="line-height: 1.7; color: var(--text-body);">Fecha de montaje confirmada y cumplida. Planificamos cada instalación con precisión para que tu obra no sufra ningún contratiempo ni demora.</p>
-            </div>
-            
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 35px;">
-                <div style="font-size: 40px; margin-bottom: 20px;">🔧</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;">INSTALACIÓN PROFESIONAL</h3>
-                <p style="line-height: 1.7; color: var(--text-body);">Equipo técnico especializado en carpintería de aluminio y PVC. Más de 10 años de experiencia en proyectos residenciales y comerciales en Mallorca.</p>
-            </div>
-            
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 35px;">
-                <div style="font-size: 40px; margin-bottom: 20px;">📐</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;">MEDICIÓN Y ASESORÍA GRATIS</h3>
-                <p style="line-height: 1.7; color: var(--text-body);">Visita técnica a domicilio sin compromiso. Te asesoramos sobre el sistema ideal para tu vivienda, clima y presupuesto.</p>
-            </div>
-            
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 35px;">
-                <div style="font-size: 40px; margin-bottom: 20px;">🏆</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;">MARCAS PREMIUM CERTIFICADAS</h3>
-                <p style="line-height: 1.7; color: var(--text-body);">Solo trabajamos con VEKA (certificado AENOR y RAL), Cortizo (RPT certificado) y Saxun (más de 60 años de innovación).</p>
-            </div>
-            
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 35px;">
-                <div style="font-size: 40px; margin-bottom: 20px;">💬</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;">TRATO DIRECTO Y PERSONAL</h3>
-                <p style="line-height: 1.7; color: var(--text-body);">Sin intermediarios. Hablas directamente con el instalador. Atención personalizada de lunes a viernes de 8:00 a 14:00.</p>
-            </div>
-        </div>
+<!-- Why -->
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-reveal>¿Por qué elegir Valauni?</h2>
+      <p data-reveal style="--d:80ms">Carpintería profesional en el Puerto de Alcudia, Mallorca. Hablas directamente con quien mide, fabrica y monta.</p>
     </div>
+    <div class="why">
+      <div data-reveal><i data-lucide="package-check" class="ico"></i><h3>Material en stock 24 h</h3><p>Ventanas PVC VEKA, aluminio Cortizo y productos Saxun disponibles de inmediato. Sin esperas de fabricación, tu proyecto avanza al ritmo que necesita.</p></div>
+      <div data-reveal style="--d:60ms"><i data-lucide="calendar-check" class="ico"></i><h3>Montajes sin retrasos</h3><p>Fecha de montaje confirmada y cumplida. Planificamos cada instalación con precisión para que tu obra no sufra ningún contratiempo ni demora.</p></div>
+      <div data-reveal style="--d:120ms"><i data-lucide="wrench" class="ico"></i><h3>Instalación profesional</h3><p>Equipo técnico especializado en carpintería de aluminio y PVC. Más de 10 años de experiencia en proyectos residenciales y comerciales en Mallorca.</p></div>
+      <div data-reveal><i data-lucide="ruler" class="ico"></i><h3>Medición y asesoría gratis</h3><p>Visita técnica a domicilio sin compromiso. Te asesoramos sobre el sistema ideal para tu vivienda, clima y presupuesto.</p></div>
+      <div data-reveal style="--d:60ms"><i data-lucide="award" class="ico"></i><h3>Marcas premium certificadas</h3><p>Solo trabajamos con VEKA (certificado AENOR y RAL), Cortizo (RPT certificado) y Saxun (más de 60 años de innovación).</p></div>
+      <div data-reveal style="--d:120ms"><i data-lucide="message-circle" class="ico"></i><h3>Trato directo y personal</h3><p>Sin intermediarios. Hablas directamente con el instalador. Atención personalizada de lunes a viernes de 8:00 a 14:00.</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- VEKA Section -->
-<section id="veka" class="section-spacing" style="background: var(--off-white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <span class="badge badge-gold" style="margin-bottom: 20px;">DISTRIBUIDOR OFICIAL VEKA</span>
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Ventanas PVC VEKA — Lo mejor de Alemania en tu hogar</h2>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; margin-bottom: 60px;">
-            <div>
-                <p style="font-size: 18px; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">
-                    VEKA es el líder mundial en sistemas de perfiles de PVC. Sus ventanas están certificadas por AENOR y el sello alemán de calidad RAL, garantizando la más alta durabilidad, eficiencia energética y diseño en cada instalación.
-                </p>
-                
-                <div style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 20px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark);">SOFTLINE 70</h3>
-                        <span class="badge" style="background: #FFE5B4; color: #8B4513;">MÁS POPULAR</span>
-                    </div>
-                    <p style="font-size: 15px; line-height: 1.7; color: var(--text-body); margin-bottom: 10px;">
-                        La solución perfecta para reformas residenciales. Más de 15 años de resultados probados. 5 cámaras, profundidad 70mm, Uf 1.3 W/m²K.
-                    </p>
-                </div>
-                
-                <div style="background: var(--white); border: 2px solid var(--veka-blue); border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,58,112,0.1);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark);">SOFTLINE 76</h3>
-                        <span class="badge badge-gold">RECOMENDADO</span>
-                    </div>
-                    <p style="font-size: 15px; line-height: 1.7; color: var(--text-body); margin-bottom: 10px;">
-                        Evolución del 70 con triple junta EPDM para mayor aislamiento. Soporta triple acristalamiento hasta 48mm. Uf 1.1 W/m²K.
-                    </p>
-                </div>
-                
-                <div style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 30px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-dark);">SOFTLINE 82</h3>
-                        <span class="badge" style="background: #E8E8E8; color: var(--text-dark);">PREMIUM</span>
-                    </div>
-                    <p style="font-size: 15px; line-height: 1.7; color: var(--text-body); margin-bottom: 10px;">
-                        Para edificios de alta eficiencia. Certificado PassivHaus y nZEB. 7 cámaras, Uf 1.0 W/m²K. El máximo rendimiento térmico.
-                    </p>
-                </div>
-                
-                <div style="background: var(--light-gray); border-radius: 8px; padding: 25px;">
-                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text-dark); margin-bottom: 15px;">Características generales VEKA:</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> Certificación AENOR Marca N + Sello RAL Alemán
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> Perfiles Clase A — espesor pared ≥ 2.8mm
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> 100% reciclables — compromiso medioambiental
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> AluConnect: tecnología PVC + aluminio híbrido
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> TEXINO: domótica integrada para automatización
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> Más de 50 acabados y colores (incluyendo imitación madera)
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div>
-                <div class="image-gallery">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=5iVonIu%2FDsh1NIPvPnshuMNTGCnfK%2BkkckrRtiEt7EUUO5XD3u3cawyPTG3j3IbR3y8DjJj4BVithurN22hSRA2VfDP99GS6tQDSyvEIyNOJw3wIAanfv8KiB5JbyYR4mCIFr%2F7TOQ2lUdyzIXVCivmo&u2=9pFcHE3ppTbSExb6&width=2560" alt="Ventanas PVC VEKA blancas modernas" loading="lazy">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=Rl0f0CdHT%2BoujRpEaWABE%2BOGj1FpT9ECD%2BV9odMZKV0Ew45O41LMgHNm7kFlMJ%2B7h0S3O41oqkoseIdwpHpWtitKlzwSWD%2Bk57otgqWD90j5E6B89OV4qQ%3D%3D&u2=1qYvoLOciNa3w2l%2F&width=2560" alt="Ventanas PVC instaladas en casa" loading="lazy">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=gTmdwFuU99fBklkC%2Fu6LE3q7kDideCCi5uhqoOd6SYmqw%2FKLobLs8O5EBOgUF9wG%2FIRU1iEAHjINwGMPLXF96BIvZ10JTZCwEMVhXrDWSLpfzNEbG14HczGOOB9dPmt5QSyK6tmQW%2FEhlVLjik3fKF9XNkYv&u2=rk%2BzT6qetsTd0XES&width=2560" alt="Ventanas PVC VEKA hogar" loading="lazy">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=QH%2FPp37lrd8vpuau02y%2BJcDtcJGsX1g%2BVi9kfdo3YWIzuot8GaRW8kj64EXYU%2BvvCXkTiCZB0OZkrK7HQbo5bedCaeWzjPUI65yIWkuXm8e45%2FpENrZq3fcj&u2=i0Iut%2F%2FuyXhaK15m&width=2560" alt="Ventana PVC doble acristalamiento" loading="lazy">
-                </div>
-            </div>
-        </div>
+<!-- VEKA -->
+<section id="veka" class="section tone">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-reveal><span class="tag">Distribuidor oficial VEKA</span>Ventanas PVC VEKA, lo mejor de Alemania en tu hogar</h2>
+      <p data-reveal style="--d:80ms">VEKA es el líder mundial en sistemas de perfiles de PVC. Sus ventanas están certificadas por AENOR y el sello alemán de calidad RAL, garantizando la más alta durabilidad, eficiencia energética y diseño en cada instalación.</p>
     </div>
+    <div class="split">
+      <div class="panel" data-reveal>
+        <h3 class="h-sm">Características generales VEKA</h3>
+        <ul class="checks">
+          <li><i data-lucide="check" class="ico"></i>Certificación AENOR Marca N + Sello RAL alemán</li>
+          <li><i data-lucide="check" class="ico"></i>Perfiles Clase A, espesor de pared ≥ 2,8 mm</li>
+          <li><i data-lucide="check" class="ico"></i>100 % reciclables, compromiso medioambiental</li>
+          <li><i data-lucide="check" class="ico"></i>AluConnect: tecnología híbrida PVC + aluminio</li>
+          <li><i data-lucide="check" class="ico"></i>TEXINO: domótica integrada para automatización</li>
+          <li><i data-lucide="check" class="ico"></i>Más de 50 acabados y colores (incluida imitación madera)</li>
+        </ul>
+      </div>
+      <div class="gallery" data-reveal style="--d:100ms">
+        <img src="https://sspark.genspark.ai/cfimages?u1=5iVonIu%2FDsh1NIPvPnshuMNTGCnfK%2BkkckrRtiEt7EUUO5XD3u3cawyPTG3j3IbR3y8DjJj4BVithurN22hSRA2VfDP99GS6tQDSyvEIyNOJw3wIAanfv8KiB5JbyYR4mCIFr%2F7TOQ2lUdyzIXVCivmo&u2=9pFcHE3ppTbSExb6&width=2560" alt="Ventanas PVC VEKA blancas en un salón" width="1200" height="675" loading="lazy">
+        <img src="https://sspark.genspark.ai/cfimages?u1=Rl0f0CdHT%2BoujRpEaWABE%2BOGj1FpT9ECD%2BV9odMZKV0Ew45O41LMgHNm7kFlMJ%2B7h0S3O41oqkoseIdwpHpWtitKlzwSWD%2Bk57otgqWD90j5E6B89OV4qQ%3D%3D&u2=1qYvoLOciNa3w2l%2F&width=2560" alt="Ventanas PVC instaladas en vivienda" width="800" height="600" loading="lazy">
+        <img src="https://sspark.genspark.ai/cfimages?u1=gTmdwFuU99fBklkC%2Fu6LE3q7kDideCCi5uhqoOd6SYmqw%2FKLobLs8O5EBOgUF9wG%2FIRU1iEAHjINwGMPLXF96BIvZ10JTZCwEMVhXrDWSLpfzNEbG14HczGOOB9dPmt5QSyK6tmQW%2FEhlVLjik3fKF9XNkYv&u2=rk%2BzT6qetsTd0XES&width=2560" alt="Detalle de perfil de ventana PVC VEKA" width="800" height="600" loading="lazy">
+      </div>
+    </div>
+    <div class="models">
+      <article class="model" data-reveal>
+        <span class="label">Más popular</span>
+        <h3>Softline 70</h3>
+        <p>La solución perfecta para reformas residenciales. Más de 15 años de resultados probados.</p>
+        <dl class="specs"><div><dt>Cámaras</dt><dd>5</dd></div><div><dt>Profundidad</dt><dd>70 mm</dd></div><div><dt>Uf</dt><dd>1,3</dd></div></dl>
+      </article>
+      <article class="model featured" data-reveal style="--d:80ms">
+        <span class="label">Recomendado</span>
+        <h3>Softline 76</h3>
+        <p>Evolución del 70 con triple junta EPDM para mayor aislamiento. Soporta triple acristalamiento hasta 48 mm.</p>
+        <dl class="specs"><div><dt>Juntas</dt><dd>3</dd></div><div><dt>Vidrio</dt><dd>48 mm</dd></div><div><dt>Uf</dt><dd>1,1</dd></div></dl>
+      </article>
+      <article class="model" data-reveal style="--d:160ms">
+        <span class="label">Premium</span>
+        <h3>Softline 82</h3>
+        <p>Para edificios de alta eficiencia. Certificado PassivHaus y nZEB. El máximo rendimiento térmico.</p>
+        <dl class="specs"><div><dt>Cámaras</dt><dd>7</dd></div><div><dt>Profundidad</dt><dd>82 mm</dd></div><div><dt>Uf</dt><dd>1,0</dd></div></dl>
+      </article>
+    </div>
+    <p class="note">Uf (W/m²K) mide cuánto calor deja escapar el marco: cuanto más bajo, mejor aísla.</p>
+  </div>
 </section>
 
-<!-- Cortizo Section -->
-<section id="cortizo" class="section-spacing" style="background: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <span class="badge badge-gold" style="margin-bottom: 20px;">DISTRIBUIDOR OFICIAL CORTIZO</span>
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Aluminio Cortizo — Elegancia y Eficiencia</h2>
+<!-- Cortizo -->
+<section id="cortizo" class="section">
+  <div class="wrap">
+    <div class="split center">
+      <div class="media" data-reveal>
+        <img src="https://sspark.genspark.ai/cfimages?u1=GKFyVg9LjUr4pxOoXGuEIRDn4TOt2d%2BN%2BM9qEEQI80sN4XwyRi8MIQ%2F0yZq1evw9oZpD1qfg%2BuVrUWtkebm1wBaERkOeGBfT1AwLVfuj7rZn8%2BfpGDfDOrI9B8x1gRZJ7p5B&u2=Hg00FO2ZbbIyoMWM&width=2560" alt="Ventanas de aluminio modernas" width="1000" height="800" loading="lazy">
+      </div>
+      <div>
+        <h2 data-reveal><span class="tag">Distribuidor oficial Cortizo</span>Aluminio Cortizo, elegancia y eficiencia</h2>
+        <p data-reveal style="--d:80ms;margin-top:20px">El sistema Cortizo con Rotura de Puente Térmico (RPT) combina la elegancia del aluminio con la eficiencia energética que tu hogar merece. Transmitancia Uw desde 1,3 W/m²K, disponible en más de 200 colores RAL.</p>
+        <div class="figs" data-reveal style="--d:140ms">
+          <div class="fig"><span>Transmitancia</span><b>desde 1,3</b><span>W/m²K</span></div>
+          <div class="fig"><span>Colores</span><b>+200</b><span>RAL disponibles</span></div>
         </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
-            <div>
-                <img src="https://sspark.genspark.ai/cfimages?u1=GKFyVg9LjUr4pxOoXGuEIRDn4TOt2d%2BN%2BM9qEEQI80sN4XwyRi8MIQ%2F0yZq1evw9oZpD1qfg%2BuVrUWtkebm1wBaERkOeGBfT1AwLVfuj7rZn8%2BfpGDfDOrI9B8x1gRZJ7p5B&u2=Hg00FO2ZbbIyoMWM&width=2560" alt="Ventanas aluminio modernas" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);" loading="lazy">
-            </div>
-            <div>
-                <p style="font-size: 18px; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">
-                    El sistema Cortizo con Rotura de Puente Térmico (RPT) combina la elegancia del aluminio con la eficiencia energética que tu hogar merece. Transmitancia Uw desde 1.3 W/m²K, disponible en más de 200 colores RAL.
-                </p>
-                
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px;">
-                    <div style="background: var(--off-white); padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 14px; color: var(--text-light); margin-bottom: 5px;">Transmitancia</div>
-                        <div style="font-size: 24px; font-weight: 900; color: var(--text-dark);">Desde 1.3</div>
-                        <div style="font-size: 12px; color: var(--text-light);">W/m²K</div>
-                    </div>
-                    <div style="background: var(--off-white); padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 14px; color: var(--text-light); margin-bottom: 5px;">Colores</div>
-                        <div style="font-size: 24px; font-weight: 900; color: var(--text-dark);">+200</div>
-                        <div style="font-size: 12px; color: var(--text-light);">RAL disponibles</div>
-                    </div>
-                </div>
-                
-                <div style="background: var(--light-gray); border-radius: 8px; padding: 25px;">
-                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text-dark); margin-bottom: 15px;">Características:</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> RPT — Rotura de Puente Térmico
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> Resistencia a viento, lluvia y ruido
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> Ideal para obra nueva y rehabilitación
-                        </li>
-                        <li style="padding: 8px 0; color: var(--text-body); display: flex; align-items: center; gap: 10px;">
-                            <span style="color: #4CAF50; font-size: 18px;">✓</span> Diseño arquitectónico premium
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <h3 style="margin-bottom:14px">Características</h3>
+        <ul class="checks">
+          <li><i data-lucide="check" class="ico"></i>RPT, Rotura de Puente Térmico</li>
+          <li><i data-lucide="check" class="ico"></i>Resistencia a viento, lluvia y ruido</li>
+          <li><i data-lucide="check" class="ico"></i>Ideal para obra nueva y rehabilitación</li>
+          <li><i data-lucide="check" class="ico"></i>Diseño arquitectónico premium</li>
+        </ul>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- Railings -->
-<section id="barandillas" class="section-spacing" style="background: var(--off-white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Barandillas — Seguridad con Estilo</h2>
-            <p style="font-size: 18px; color: var(--text-light);">Para terrazas, balcones y escaleras de Mallorca</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-            <div style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 40px;">
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px;">BARANDILLAS DE ALUMINIO</h3>
-                <p style="color: var(--text-light); margin-bottom: 25px;">Resistencia y personalización total</p>
-                
-                <div style="margin-bottom: 20px;">
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Modelo Classic Vertical</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Perfiles verticales lacados en RAL a medida. Interior y exterior. Garantía 10 años.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Modelo Slim Minimalista</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Perfil ultra-delgado. Arquitectura contemporánea. Poco mantenimiento.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Modelo Horizontal Moderno</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Lamas horizontales extruidas. Estética industrial premium.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white);">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Mixto Aluminio + Vidrio</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Paneles de vidrio integrados en marco de aluminio. Versatilidad total.</p>
-                    </div>
-                </div>
-                
-                <div style="background: var(--light-gray); padding: 20px; border-radius: 8px;">
-                    <p style="font-size: 14px; line-height: 1.7; color: var(--text-body);">
-                        Alta resistencia a la corrosión · Anclajes certificados · Personalización RAL · Instalación modular rápida
-                    </p>
-                </div>
-            </div>
-            
-            <div style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 40px;">
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px;">BARANDILLAS DE CRISTAL</h3>
-                <p style="color: var(--text-light); margin-bottom: 25px;">Luminosidad y diseño premium</p>
-                
-                <div style="margin-bottom: 20px;">
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Templado Transparente</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Vidrio 10/12mm. Vistas despejadas. Máxima luminosidad.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Laminado Seguridad 44.2 / 55.2</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Butiral PVB. No fragmenta en rotura. Certificado EN 12600.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Satinado / Semi-opaco</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Privacidad con paso de luz natural. Ideal terrazas residenciales.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white); margin-bottom: 15px;">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Frameless (sin marcos)</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Pinzas de acero o aluminio. Máxima elegancia y visibilidad.</p>
-                    </div>
-                    <div style="padding: 15px; border-left: 4px solid var(--accent); background: var(--off-white);">
-                        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">Sistema perfil U inferior</h4>
-                        <p style="font-size: 14px; color: var(--text-body);">Estanqueidad perfecta. Solución arquitectónica premium.</p>
-                    </div>
-                </div>
-                
-                <div style="background: var(--light-gray); padding: 20px; border-radius: 8px;">
-                    <p style="font-size: 14px; line-height: 1.7; color: var(--text-body);">
-                        Mayor luminosidad · Espacio visualmente más amplio · EN 12600 · Pasamanos aluminio/acero
-                    </p>
-                </div>
-            </div>
-        </div>
+<!-- Barandillas -->
+<section id="barandillas" class="section tone">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-reveal>Barandillas, seguridad con estilo</h2>
+      <p data-reveal style="--d:80ms">Para terrazas, balcones y escaleras de Mallorca.</p>
     </div>
+    <div class="split">
+      <div class="panel rail" data-reveal>
+        <h3>Barandillas de aluminio</h3>
+        <p class="sub">Resistencia y personalización total</p>
+        <ul class="rows">
+          <li><h4>Modelo Classic Vertical</h4><p>Perfiles verticales lacados en RAL a medida. Interior y exterior. Garantía 10 años.</p></li>
+          <li><h4>Modelo Slim Minimalista</h4><p>Perfil ultradelgado. Arquitectura contemporánea. Poco mantenimiento.</p></li>
+          <li><h4>Modelo Horizontal Moderno</h4><p>Lamas horizontales extruidas. Estética industrial premium.</p></li>
+          <li><h4>Mixto aluminio + vidrio</h4><p>Paneles de vidrio integrados en marco de aluminio. Versatilidad total.</p></li>
+        </ul>
+        <ul class="pills"><li>Alta resistencia a la corrosión</li><li>Anclajes certificados</li><li>Personalización RAL</li><li>Instalación modular rápida</li></ul>
+      </div>
+      <div class="panel rail" data-reveal style="--d:100ms">
+        <h3>Barandillas de cristal</h3>
+        <p class="sub">Luminosidad y diseño premium</p>
+        <ul class="rows">
+          <li><h4>Templado transparente</h4><p>Vidrio 10/12 mm. Vistas despejadas. Máxima luminosidad.</p></li>
+          <li><h4>Laminado de seguridad 44.2 / 55.2</h4><p>Butiral PVB. No fragmenta en rotura. Certificado EN 12600.</p></li>
+          <li><h4>Satinado / semiopaco</h4><p>Privacidad con paso de luz natural. Ideal para terrazas residenciales.</p></li>
+          <li><h4>Frameless (sin marcos)</h4><p>Pinzas de acero o aluminio. Máxima elegancia y visibilidad.</p></li>
+          <li><h4>Sistema perfil U inferior</h4><p>Estanqueidad perfecta. Solución arquitectónica premium.</p></li>
+        </ul>
+        <ul class="pills"><li>Mayor luminosidad</li><li>Espacio más amplio</li><li>EN 12600</li><li>Pasamanos aluminio/acero</li></ul>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Saxun Products -->
-<section id="productos" class="section-spacing" style="background: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <span class="badge badge-gold" style="margin-bottom: 20px;">DISTRIBUIDOR OFICIAL SAXUN — +60 AÑOS DE INNOVACIÓN</span>
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Protección Solar y Cerramientos Saxun</h2>
-            <p style="font-size: 18px; color: var(--text-light);">La gama más completa del mercado para tu terraza, fachada y hogar</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-            
-            <div id="pergolas" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 12px; overflow: hidden;">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=HjkuO9Zg0Cr%2F49ym8M74UQQumoOCmRMIfxGvQODY%2F5fTlN9NFKnVUIJ2%2BmpZdFiUWTrpUIhJcp3FPvPR256WYkjD&u2=qIkDmTiI2PU67OCw&width=2560" alt="Pérgolas" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                </div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">PÉRGOLAS BIOCLIMÁTICAS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Lamas orientables motorizadas. Convierte tu terraza en un espacio habitable todo el año.</p>
-            </div>
-            
-            <div id="toldos" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 12px; overflow: hidden;">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=bD398CCqHl8J9iDl4UOaMktB62QmQx1gMaSwDBTA7dSVtFvblVRuBH9gE9kgSUQCy2Z7V4BSc4n%2FIXoAIu%2FJEq9j&u2=y4TiNTjpPsNl97xS&width=2560" alt="Toldos" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                </div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">TOLDOS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Extensibles, cofre y verticales. Tejidos técnicos UV. Motorización opcional.</p>
-            </div>
-            
-            <div id="celosias" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🌿</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">CELOSÍAS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Aluminio extruido de alta resistencia. Estética y control de luz. Múltiples formas y colores.</p>
-            </div>
-            
-            <div id="mallorquinas" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🪟</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">MALLORQUINAS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Lamas orientables en aluminio. Controla la luz y el aire. Aislamiento térmico y acústico.</p>
-            </div>
-            
-            <div id="persianas" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">📦</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">PERSIANAS Y COMPACTOS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Lamas de aluminio perfilado y PVC. Cajón integrado o mochila. Máxima protección.</p>
-            </div>
-            
-            <div id="mosquiteras" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🦟</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">MOSQUITERAS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Enrollable, plisada, corredera y fija. Extensa gama de colores. Compatible con cualquier ventana.</p>
-            </div>
-            
-            <div id="puertas-auto" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🚪</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">PUERTAS AUTOMÁTICAS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Instalación rápida. Control de temperatura. Para negocios, comunidades y viviendas.</p>
-            </div>
-            
-            <div id="cortinas-cristal" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🪟</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">CORTINAS DE CRISTAL</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Paneles correderos sin marco. Protección del viento y lluvia sin perder vistas ni luz.</p>
-            </div>
-            
-            <div id="alicantinas" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🌅</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">ALICANTINAS Y CORTINAS PVC</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Protección solar tradicional renovada. Contra sol e insectos. Económicas y funcionales.</p>
-            </div>
-            
-            <div id="estores" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🎭</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">CORTINAS Y ESTORES</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Tejidos screen, blackout y translúcido. Enrollable, panel japonés, plisado. Motorizable.</p>
-            </div>
-            
-            <div id="puertas-garaje" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🏠</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">PUERTAS GARAJE Y COMERCIALES</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Seccionales, enrollables y basculantes. Para garajes residenciales e industriales. Automatizadas.</p>
-            </div>
-            
-            <div id="smart-home" class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🤖</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">AUTOMATISMOS Y SMART HOME</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Control desde smartphone. Compatible KNX, Alexa, Google Home. Integra toda la protección solar.</p>
-            </div>
-            
-            <div class="card-hover" style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 30px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🚪</div>
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;">PUERTAS PLEGABLES Y TECHOS</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-body);">Apertura total, sin barreras. Techos fijos y móviles. Fusiona interior con exterior.</p>
-            </div>
-            
-        </div>
+<!-- Saxun -->
+<section id="productos" class="section">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-reveal><span class="tag">Distribuidor oficial Saxun, +60 años de innovación</span>Protección solar y cerramientos Saxun</h2>
+      <p data-reveal style="--d:80ms">La gama más completa del mercado para tu terraza, fachada y hogar.</p>
     </div>
+    <div class="feature-figs">
+      <figure id="pergolas" data-reveal>
+        <img src="https://sspark.genspark.ai/cfimages?u1=HjkuO9Zg0Cr%2F49ym8M74UQQumoOCmRMIfxGvQODY%2F5fTlN9NFKnVUIJ2%2BmpZdFiUWTrpUIhJcp3FPvPR256WYkjD&u2=qIkDmTiI2PU67OCw&width=2560" alt="Pérgola bioclimática en terraza" width="900" height="600" loading="lazy">
+        <figcaption><h3>Pérgolas bioclimáticas</h3><p>Lamas orientables motorizadas. Convierte tu terraza en un espacio habitable todo el año.</p></figcaption>
+      </figure>
+      <figure id="toldos" data-reveal style="--d:100ms">
+        <img src="https://sspark.genspark.ai/cfimages?u1=bD398CCqHl8J9iDl4UOaMktB62QmQx1gMaSwDBTA7dSVtFvblVRuBH9gE9kgSUQCy2Z7V4BSc4n%2FIXoAIu%2FJEq9j&u2=y4TiNTjpPsNl97xS&width=2560" alt="Toldo extensible en terraza" width="900" height="600" loading="lazy">
+        <figcaption><h3>Toldos</h3><p>Extensibles, cofre y verticales. Tejidos técnicos UV. Motorización opcional.</p></figcaption>
+      </figure>
+    </div>
+    <div class="prod-grid" data-reveal>
+      <div class="prod" id="celosias"><i data-lucide="layout-grid" class="ico"></i><h3>Celosías</h3><p>Aluminio extruido de alta resistencia. Estética y control de luz. Múltiples formas y colores.</p></div>
+      <div class="prod" id="mallorquinas"><i data-lucide="columns-3" class="ico"></i><h3>Mallorquinas</h3><p>Lamas orientables en aluminio. Controla la luz y el aire. Aislamiento térmico y acústico.</p></div>
+      <div class="prod" id="persianas"><i data-lucide="blinds" class="ico"></i><h3>Persianas y compactos</h3><p>Lamas de aluminio perfilado y PVC. Cajón integrado o mochila. Máxima protección.</p></div>
+      <div class="prod" id="mosquiteras"><i data-lucide="bug-off" class="ico"></i><h3>Mosquiteras</h3><p>Enrollable, plisada, corredera y fija. Extensa gama de colores. Compatible con cualquier ventana.</p></div>
+      <div class="prod" id="puertas-auto"><i data-lucide="door-open" class="ico"></i><h3>Puertas automáticas</h3><p>Instalación rápida. Control de temperatura. Para negocios, comunidades y viviendas.</p></div>
+      <div class="prod" id="cortinas-cristal"><i data-lucide="app-window" class="ico"></i><h3>Cortinas de cristal</h3><p>Paneles correderos sin marco. Protección del viento y lluvia sin perder vistas ni luz.</p></div>
+      <div class="prod" id="alicantinas"><i data-lucide="sun" class="ico"></i><h3>Alicantinas y cortinas PVC</h3><p>Protección solar tradicional renovada. Contra sol e insectos. Económicas y funcionales.</p></div>
+      <div class="prod" id="estores"><i data-lucide="panel-top" class="ico"></i><h3>Cortinas y estores</h3><p>Tejidos screen, blackout y translúcido. Enrollable, panel japonés, plisado. Motorizable.</p></div>
+      <div class="prod" id="puertas-garaje"><i data-lucide="warehouse" class="ico"></i><h3>Puertas de garaje y comerciales</h3><p>Seccionales, enrollables y basculantes. Para garajes residenciales e industriales. Automatizadas.</p></div>
+      <div class="prod" id="smart-home"><i data-lucide="smartphone" class="ico"></i><h3>Automatismos y Smart Home</h3><p>Control desde smartphone. Compatible KNX, Alexa, Google Home. Integra toda la protección solar.</p></div>
+      <div class="prod"><i data-lucide="fold-horizontal" class="ico"></i><h3>Puertas plegables y techos</h3><p>Apertura total, sin barreras. Techos fijos y móviles. Fusiona interior con exterior.</p></div>
+      <div class="prod"><i data-lucide="ruler" class="ico"></i><h3>¿No sabes cuál elegir?</h3><p>Te visitamos, medimos y te recomendamos la mejor solución. <a href="#contacto" style="color:var(--gold-ink);font-weight:600">Pide visita gratis</a></p></div>
+    </div>
+  </div>
 </section>
 
-<!-- Energy Analysis -->
-<section id="analisis" class="section-spacing" style="background: var(--off-white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Cuánto puedes ahorrar con Valauni</h2>
-            <p style="font-size: 18px; color: var(--text-light);">Datos técnicos reales — vivienda tipo 100m² con 20m² de superficie acristalada</p>
-        </div>
-        
-        <!-- Comparison -->
-        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; margin-bottom: 60px;">
-            <div style="background: #FFF8F8; border: 2px solid #FFCCCC; border-radius: 12px; padding: 35px;">
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: #D32F2F; margin-bottom: 25px; text-align: center;">ANTES<br>Ventana antigua aluminio sin RPT</h3>
-                <div style="margin-bottom: 15px;">
-                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 5px;">Transmitancia:</div>
-                    <div style="font-size: 28px; font-weight: 900; color: #D32F2F;">5.7 W/m²K</div>
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 5px;">Pérdidas anuales:</div>
-                    <div style="font-size: 28px; font-weight: 900; color: #D32F2F;">2,280 kWh</div>
-                </div>
-                <div>
-                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 5px;">Coste energético:</div>
-                    <div style="font-size: 32px; font-weight: 900; color: #D32F2F;">592€/año</div>
-                </div>
-            </div>
-            
-            <div style="background: var(--gold); color: var(--white); padding: 25px 20px; border-radius: 12px; text-align: center; min-width: 150px;">
-                <div style="font-size: 16px; font-weight: 700; margin-bottom: 10px;">AHORRO</div>
-                <div style="font-size: 42px; font-weight: 900; line-height: 1;">446€</div>
-                <div style="font-size: 14px; margin-top: 5px;">por año</div>
-            </div>
-            
-            <div style="background: #F8FFF8; border: 2px solid #CCFFCC; border-radius: 12px; padding: 35px;">
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: #388E3C; margin-bottom: 25px; text-align: center;">DESPUÉS<br>Valauni PVC + bajo emisivo</h3>
-                <div style="margin-bottom: 15px;">
-                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 5px;">Transmitancia:</div>
-                    <div style="font-size: 28px; font-weight: 900; color: #388E3C;">1.4 W/m²K <span style="font-size: 16px;">(-75%)</span></div>
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 5px;">Pérdidas anuales:</div>
-                    <div style="font-size: 28px; font-weight: 900; color: #388E3C;">560 kWh <span style="font-size: 16px;">(-75%)</span></div>
-                </div>
-                <div>
-                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 5px;">Coste energético:</div>
-                    <div style="font-size: 32px; font-weight: 900; color: #388E3C;">146€/año</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Charts -->
-        <div style="background: var(--white); border-radius: 12px; padding: 40px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 30px; text-align: center;">Pérdidas energéticas anuales (kWh) — Antes vs Con Valauni</h3>
-            <div id="stackedBarChart" style="width: 100%; height: 400px;"></div>
-        </div>
-        
-        <div style="background: var(--white); border-radius: 12px; padding: 40px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 30px; text-align: center;">Ahorro Acumulado a 15 años con asesoramiento Valauni</h3>
-            <div id="lineChart" style="width: 100%; height: 400px;"></div>
-        </div>
-        
-        <div style="background: var(--white); border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 30px; text-align: center;">¿Por dónde se pierde la energía de tu hogar?</h3>
-            <div id="treemapChart" style="width: 100%; height: 450px;"></div>
-        </div>
+<!-- Ahorro -->
+<section id="analisis" class="section tone">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-reveal>Cuánto puedes ahorrar con Valauni</h2>
+      <p data-reveal style="--d:80ms">Datos técnicos reales: vivienda tipo de 100 m² con 20 m² de superficie acristalada.</p>
     </div>
+    <div class="compare">
+      <div class="cmp before" data-reveal>
+        <h3><small>Antes</small>Ventana antigua de aluminio sin RPT</h3>
+        <dl><div><dt>Transmitancia</dt><dd>5,7 W/m²K</dd></div><div><dt>Pérdidas anuales</dt><dd>2.280 kWh</dd></div><div><dt>Coste energético</dt><dd>592 €/año</dd></div></dl>
+      </div>
+      <div class="save" data-reveal style="--d:80ms"><span>Ahorro</span><b>446 €</b><span>por año</span></div>
+      <div class="cmp after" data-reveal style="--d:160ms">
+        <h3><small>Después</small>Valauni PVC + vidrio bajo emisivo</h3>
+        <dl><div><dt>Transmitancia</dt><dd>1,4 W/m²K <small>−75 %</small></dd></div><div><dt>Pérdidas anuales</dt><dd>560 kWh <small>−75 %</small></dd></div><div><dt>Coste energético</dt><dd>146 €/año</dd></div></dl>
+      </div>
+    </div>
+    <div class="charts">
+      <div class="chart-card" data-reveal><h3>Pérdidas energéticas anuales (kWh): antes vs con Valauni</h3><div id="stackedBarChart" class="chart" role="img" aria-label="Gráfico de barras: pérdidas en calefacción, refrigeración, infiltraciones y ganancias solares, antes y con Valauni"></div></div>
+      <div class="chart-card" data-reveal><h3>Ahorro acumulado a 15 años con asesoramiento Valauni</h3><div id="lineChart" class="chart" role="img" aria-label="Gráfico de líneas del ahorro acumulado en 15 años"></div></div>
+      <div class="chart-card" data-reveal><h3>¿Por dónde se pierde la energía de tu hogar?</h3><div id="treemapChart" class="chart" role="img" aria-label="Reparto de pérdidas: ventanas y puertas 25 %, tejado 25 %, paredes 20 %, suelo, puentes térmicos e infiltraciones 10 % cada uno"></div></div>
+    </div>
+  </div>
 </section>
 
-<!-- Acoustic -->
-<section class="section-spacing" style="background: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Aislamiento Acústico</h2>
-            <p style="font-size: 18px; color: var(--text-light);">Cada 10 dB de aislamiento = la mitad del ruido percibido</p>
-        </div>
-        
-        <div style="background: var(--off-white); border-radius: 12px; padding: 50px; margin-bottom: 40px;">
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; background: var(--white); border-radius: 8px; overflow: hidden;">
-                    <thead>
-                        <tr style="background: var(--accent); color: var(--white);">
-                            <th style="padding: 15px; text-align: left; font-weight: 700;">Situación</th>
-                            <th style="padding: 15px; text-align: center; font-weight: 700;">dB</th>
-                            <th style="padding: 15px; text-align: center; font-weight: 700;">Ventana estándar</th>
-                            <th style="padding: 15px; text-align: center; font-weight: 700;">Valauni VEKA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid var(--border);">
-                            <td style="padding: 15px;">Interior recomendado</td>
-                            <td style="padding: 15px; text-align: center; font-weight: 700;">35dB</td>
-                            <td style="padding: 15px; text-align: center; color: #D32F2F;">✗ No siempre</td>
-                            <td style="padding: 15px; text-align: center; color: #388E3C; font-weight: 700;">✓ Siempre</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid var(--border);">
-                            <td style="padding: 15px;">Tráfico urbano 70dB</td>
-                            <td style="padding: 15px; text-align: center; font-weight: 700;">Percibido</td>
-                            <td style="padding: 15px; text-align: center;">~42-45 dB</td>
-                            <td style="padding: 15px; text-align: center; color: #388E3C; font-weight: 700;">~18-20 dB</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid var(--border);">
-                            <td style="padding: 15px;">Conversación 50dB</td>
-                            <td style="padding: 15px; text-align: center; font-weight: 700;">Percibido</td>
-                            <td style="padding: 15px; text-align: center;">~22-25 dB</td>
-                            <td style="padding: 15px; text-align: center; color: #388E3C; font-weight: 700;">¡Prácticamente 0!</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 15px;">Certificación acústica</td>
-                            <td style="padding: 15px; text-align: center;"></td>
-                            <td style="padding: 15px; text-align: center;">Básica</td>
-                            <td style="padding: 15px; text-align: center; color: #388E3C; font-weight: 700;">Clase 4 (máx)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div style="background: var(--off-white); border-radius: 12px; padding: 50px;">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 30px; text-align: center;">Escala de Ruido</h3>
-            <div style="height: 60px; background: linear-gradient(to right, #4CAF50 0%, #FFEB3B 30%, #FF9800 60%, #F44336 100%); border-radius: 8px; position: relative; margin: 40px 0;">
-                <div style="position: absolute; top: -30px; left: 0%; transform: translateX(-50%); font-size: 13px; font-weight: 600; text-align: center;">0dB<br>🔇</div>
-                <div style="position: absolute; top: -30px; left: 27%; transform: translateX(-50%); font-size: 13px; font-weight: 600; text-align: center;">30dB<br>📚</div>
-                <div style="position: absolute; top: -30px; left: 45%; transform: translateX(-50%); font-size: 13px; font-weight: 600; text-align: center;">50dB<br>💬</div>
-                <div style="position: absolute; top: -30px; left: 63%; transform: translateX(-50%); font-size: 13px; font-weight: 600; text-align: center;">70dB<br>🚗</div>
-                <div style="position: absolute; top: -30px; left: 81%; transform: translateX(-50%); font-size: 13px; font-weight: 600; text-align: center;">90dB<br>⚙️</div>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 60px;">
-                <div style="background: var(--white); padding: 30px; border-radius: 8px; text-align: center; border: 2px solid var(--border);">
-                    <div style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;">Ventana estándar aísla</div>
-                    <div style="font-size: 48px; font-weight: 900; color: #FF9800;">28dB</div>
-                </div>
-                <div style="background: var(--accent); padding: 30px; border-radius: 8px; text-align: center; color: var(--white);">
-                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Ventana Valauni VEKA aísla</div>
-                    <div style="font-size: 48px; font-weight: 900;">52dB ✓</div>
-                </div>
-            </div>
-        </div>
+<!-- Acústica -->
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-reveal>Aislamiento acústico</h2>
+      <p data-reveal style="--d:80ms">Cada 10 dB de aislamiento equivalen a la mitad del ruido percibido.</p>
     </div>
+    <div class="table-wrap" data-reveal>
+      <table>
+        <thead><tr><th scope="col">Situación</th><th scope="col">dB</th><th scope="col">Ventana estándar</th><th scope="col">Valauni VEKA</th></tr></thead>
+        <tbody>
+          <tr><td>Interior recomendado</td><td><b>35 dB</b></td><td class="no">No siempre</td><td class="yes">Siempre</td></tr>
+          <tr><td>Tráfico urbano 70 dB</td><td>Percibido</td><td>~42–45 dB</td><td class="yes">~18–20 dB</td></tr>
+          <tr><td>Conversación 50 dB</td><td>Percibido</td><td>~22–25 dB</td><td class="yes">¡Prácticamente 0!</td></tr>
+          <tr><td>Certificación acústica</td><td></td><td>Básica</td><td class="yes">Clase 4 (máx.)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="scale" data-reveal>
+      <h3>Escala de ruido</h3>
+      <div class="bar">
+        <div><b>0 dB</b>Silencio</div>
+        <div><b>30 dB</b>Biblioteca</div>
+        <div><b>50 dB</b>Conversación</div>
+        <div><b>70 dB</b>Tráfico</div>
+        <div><b>90 dB</b>Maquinaria</div>
+      </div>
+      <div class="duo">
+        <div><span>Ventana estándar aísla</span><b>28 dB</b></div>
+        <div class="us"><span>Ventana Valauni VEKA aísla</span><b>52 dB</b></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Calculator -->
-<section id="calculadora" class="section-spacing" style="background: var(--off-white);">
-    <div style="max-width: 700px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px;">Calcula tu Ahorro Personal</h2>
-        </div>
-        
-        <div style="background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
-            <label style="font-size: 18px; font-weight: 600; color: var(--text-dark); display: block; margin-bottom: 20px;">¿Cuánto gastas al año en calefacción y aire acondicionado?</label>
-            <input type="range" id="energySlider" min="500" max="3000" value="1200" step="50" style="width: 100%; margin-bottom: 15px;">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <span style="font-size: 54px; font-weight: 900; color: var(--accent); font-family: 'Montserrat', sans-serif;" id="energyValue">1200</span>
-                <span style="font-size: 28px; font-weight: 600; color: var(--text-dark);">€/año</span>
-            </div>
-            
-            <div style="background: var(--off-white); border-radius: 12px; padding: 35px; margin-bottom: 30px;">
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; text-align: center;">Tu ahorro estimado con Valauni</h3>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 12px; color: var(--text-light); margin-bottom: 5px;">Ahorro 20%</div>
-                        <div style="font-size: 28px; font-weight: 900; color: #4CAF50;" id="saving20">240€</div>
-                        <div style="font-size: 11px; color: var(--text-light);">por año</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 12px; color: var(--text-light); margin-bottom: 5px;">Ahorro 30%</div>
-                        <div style="font-size: 28px; font-weight: 900; color: #4CAF50;" id="saving30">360€</div>
-                        <div style="font-size: 11px; color: var(--text-light);">por año</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 12px; color: var(--text-light); margin-bottom: 5px;">Ahorro 40%</div>
-                        <div style="font-size: 28px; font-weight: 900; color: #4CAF50;" id="saving40">480€</div>
-                        <div style="font-size: 11px; color: var(--text-light);">por año</div>
-                    </div>
-                </div>
-                <div style="background: var(--white); padding: 20px; border-radius: 8px; text-align: center; border: 2px solid var(--border);">
-                    <div style="font-size: 14px; color: var(--text-light); margin-bottom: 5px;">Amortización estimada</div>
-                    <div style="font-size: 32px; font-weight: 900; color: var(--accent);" id="amortization">7-8 años</div>
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="#contacto" class="btn-primary" style="font-size: 16px; display: inline-flex; align-items: center; gap: 10px;">
-                    Obtén tu análisis exacto gratuito → Llámanos
-                </a>
-            </div>
-        </div>
+<!-- Calculadora -->
+<section id="calculadora" class="section tone">
+  <div class="wrap calc">
+    <div>
+      <h2 data-reveal>Calcula tu ahorro personal</h2>
+      <p class="lead" data-reveal style="--d:80ms;margin:20px 0 32px">Mueve la barra con lo que gastas al año en calefacción y aire acondicionado. Después te hacemos el análisis exacto de tu vivienda, gratis.</p>
+      <div class="ctas" data-reveal style="--d:140ms">
+        <a href="tel:+34643143809" class="btn btn-primary"><i data-lucide="phone" class="ico"></i>Llamar ahora</a>
+        <a href="https://wa.me/34643143809?text=Hola%2C%20me%20gustar%C3%ADa%20un%20an%C3%A1lisis%20de%20ahorro%20para%20mi%20vivienda." class="btn btn-outline" target="_blank" rel="noopener">Pedir análisis por WhatsApp</a>
+      </div>
     </div>
+    <div class="calc-box" data-reveal style="--d:100ms">
+      <label for="energySlider">¿Cuánto gastas al año en calefacción y aire acondicionado?</label>
+      <input type="range" id="energySlider" min="500" max="3000" value="1200" step="50">
+      <output for="energySlider" id="energyValue" aria-live="polite">1.200<small>€/año</small></output>
+      <div class="savings">
+        <div><span>Ahorro 20 %</span><b id="saving20">240 €</b></div>
+        <div><span>Ahorro 30 %</span><b id="saving30">360 €</b></div>
+        <div><span>Ahorro 40 %</span><b id="saving40">480 €</b></div>
+      </div>
+      <div class="payback"><span>Amortización estimada</span><b id="amortization">7-8 años</b></div>
+    </div>
+  </div>
 </section>
 
-<!-- Contact -->
-<section id="contacto" class="section-spacing" style="background: #1A1A2E; color: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
-            <div>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 25px;">
-                    <img src="logo-valauni.png" alt="Valauni - Carpintería PVC y Aluminio" style="height: 80px; width: auto; mix-blend-mode: screen;">
-                    <span style="font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; color: var(--white); letter-spacing: 1px;">VALAUNI</span>
-                </div>
-                <div style="width: 60px; height: 3px; background: var(--gold); margin-bottom: 30px;"></div>
-                <h2 style="font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; margin-bottom: 15px;">Visítanos en Mallorca</h2>
-                <p style="font-size: 16px; line-height: 1.7; opacity: 0.9; margin-bottom: 40px;">Estamos en el Puerto de Alcudia, la zona más dinámica de Mallorca. Ven a ver nuestros materiales en persona o llámanos para una visita técnica gratuita.</p>
-                
-                <div style="margin-bottom: 35px;">
-                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 20px;">
-                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 14px; opacity: 0.7; margin-bottom: 5px;">Ubicación</div>
-                            <div style="font-size: 18px; font-weight: 700; line-height: 1.4;">Avenida Tucán 33 E<br>Puerto de Alcudia, 07400 Mallorca</div>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 20px;">
-                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 14px; opacity: 0.7; margin-bottom: 5px;">Teléfono</div>
-                            <a href="tel:+34643143809" style="font-size: 22px; font-weight: 700; color: var(--white); text-decoration: none;">+34 643 14 38 09</a>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 20px;">
-                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 14px; opacity: 0.7; margin-bottom: 5px;">Email</div>
-                            <a href="mailto:solkapit@valauni.net" style="font-size: 18px; font-weight: 600; color: var(--white); text-decoration: none;">solkapit@valauni.net</a>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; align-items: start; gap: 15px;">
-                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <div style="font-size: 14px; opacity: 0.7; margin-bottom: 5px;">Horario</div>
-                            <div style="font-size: 18px; font-weight: 600;">Lunes a Viernes<br>8:00 a 14:00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 30px;">
-                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">Síguenos</div>
-                    <div style="display: flex; gap: 15px;">
-                        <a href="https://www.instagram.com/valaunioficial/" target="_blank" style="width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); text-decoration: none; font-size: 20px; transition: all 0.3s;">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.facebook.com/profile.php?id=61571740704965" target="_blank" style="width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); text-decoration: none; font-size: 20px; transition: all 0.3s;">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <a href="https://wa.me/34643143809?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20un%20presupuesto%20para%20mi%20proyecto%20en%20Mallorca." target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: var(--white); padding: 18px 35px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 16px; transition: all 0.3s;">
-                    <i class="fab fa-whatsapp" style="font-size: 26px;"></i>
-                    💬 Escríbenos por WhatsApp
-                </a>
-            </div>
-            
-            <div>
-                <div style="border-radius: 12px; overflow: hidden; height: 100%; min-height: 500px; border: 3px solid rgba(255,255,255,0.15); box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-                    <iframe src="https://maps.google.com/maps?q=Avenida+Tuc%C3%A1n+33,+Puerto+de+Alcudia,+Mallorca&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(100%);"></iframe>
-                </div>
-                <p style="text-align: center; margin-top: 15px; opacity: 0.7; font-size: 13px;">📍 Avenida Tucán 33 E · Puerto de Alcudia · 07400 Mallorca · Illes Balears</p>
-            </div>
-        </div>
+<!-- Contacto -->
+<section id="contacto" class="section contact">
+  <div class="wrap split">
+    <div>
+      <h2 data-reveal>Visítanos en Mallorca</h2>
+      <p class="lead" data-reveal style="--d:80ms">Estamos en el Puerto de Alcudia, la zona más dinámica de Mallorca. Ven a ver nuestros materiales en persona o llámanos para una visita técnica gratuita.</p>
+      <ul class="info" data-reveal style="--d:140ms">
+        <li><i data-lucide="map-pin" class="ico"></i><div><span>Ubicación</span><b>Avenida Tucán 33 E<br>Puerto de Alcudia, 07400 Mallorca</b></div></li>
+        <li><i data-lucide="phone" class="ico"></i><div><span>Teléfono</span><a href="tel:+34643143809">+34 643 14 38 09</a></div></li>
+        <li><i data-lucide="mail" class="ico"></i><div><span>Email</span><a href="mailto:solkapit@valauni.net">solkapit@valauni.net</a></div></li>
+        <li><i data-lucide="clock" class="ico"></i><div><span>Horario</span><b>Lunes a viernes, 8:00 a 14:00</b></div></li>
+      </ul>
+      <div class="ctas" data-reveal style="--d:200ms">
+        <a class="btn btn-wa" href="https://wa.me/34643143809?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20un%20presupuesto%20para%20mi%20proyecto%20en%20Mallorca." target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.2 12C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2A11.8 11.8 0 0 0 12 .2C5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7c1.7.9 3.7 1.4 5.6 1.4 6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.4-8.3z"/></svg>Escríbenos por WhatsApp</a>
+        <a class="btn btn-light" href="tel:+34643143809"><i data-lucide="phone" class="ico"></i>Llamar</a>
+      </div>
+      <div class="social">
+        <a href="https://www.instagram.com/valaunioficial/" target="_blank" rel="noopener" aria-label="Instagram de Valauni"><i data-lucide="instagram" class="ico"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61571740704965" target="_blank" rel="noopener" aria-label="Facebook de Valauni"><i data-lucide="facebook" class="ico"></i></a>
+      </div>
     </div>
+    <div class="map" data-reveal style="--d:120ms">
+      <iframe title="Mapa: Avenida Tucán 33 E, Puerto de Alcudia" src="https://maps.google.com/maps?q=Avenida+Tuc%C3%A1n+33,+Puerto+de+Alcudia,+Mallorca&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
 </section>
+</main>
 
-<!-- Footer -->
-<footer style="background: var(--footer-bg); color: var(--white); padding: 50px 20px 20px;">
-    <div style="max-width: 1200px; margin: 0 auto;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
-            <div>
-                <div style="margin-bottom: 15px;">
-                    <img src="logo-valauni.png" alt="Valauni - Carpintería PVC y Aluminio" style="height: 60px; width: auto;">
-                </div>
-                <p style="opacity: 0.7; line-height: 1.6; font-size: 14px;">Carpintería de Aluminio y PVC · Asesorías para su Proyecto</p>
-            </div>
-            
-            <div>
-                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 15px; font-size: 16px;">Enlaces</h4>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 8px;"><a href="#inicio" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Inicio</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#veka" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">PVC VEKA</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#cortizo" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Aluminio</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#barandillas" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Barandillas</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#productos" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Productos Saxun</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#contacto" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Contacto</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 15px; font-size: 16px;">Contacto</h4>
-                <p style="opacity: 0.7; font-size: 14px; margin-bottom: 8px;">📞 +34 643 14 38 09</p>
-                <p style="opacity: 0.7; font-size: 14px; margin-bottom: 8px;">📧 solkapit@valauni.net</p>
-                <p style="opacity: 0.7; font-size: 14px; margin-bottom: 8px;">📍 Av. Tucán 33 E, Puerto de Alcudia</p>
-                <p style="opacity: 0.7; font-size: 14px;">⏰ L-V: 8:00 - 14:00</p>
-            </div>
-        </div>
-        
-        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; text-align: center;">
-            <p style="opacity: 0.6; font-size: 14px; margin-bottom: 5px;">© 2025 Valauni — Carpintería PVC y Aluminio · Puerto de Alcudia, Mallorca</p>
-            <p style="opacity: 0.6; font-size: 13px;">Distribuidor Oficial VEKA · CORTIZO · SAXUN</p>
-        </div>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#inicio"><img src="logo-icon.png" alt="" width="40" height="40"><span>VALAUNI</span></a>
+        <p>Carpintería de aluminio y PVC · Asesoría para tu proyecto en el norte de Mallorca.</p>
+      </div>
+      <div>
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="#veka">PVC VEKA</a></li>
+          <li><a href="#cortizo">Aluminio Cortizo</a></li>
+          <li><a href="#barandillas">Barandillas</a></li>
+          <li><a href="#productos">Productos Saxun</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><i data-lucide="phone" class="ico"></i><a href="tel:+34643143809">+34 643 14 38 09</a></li>
+          <li><i data-lucide="mail" class="ico"></i><a href="mailto:solkapit@valauni.net">solkapit@valauni.net</a></li>
+          <li><i data-lucide="map-pin" class="ico"></i>Av. Tucán 33 E, Puerto de Alcudia</li>
+          <li><i data-lucide="clock" class="ico"></i>L-V: 8:00 - 14:00</li>
+        </ul>
+      </div>
     </div>
+    <div class="legal">
+      <span>© 2026 VALAUNI CARPINTERIA S.L. · Puerto de Alcudia, Mallorca</span>
+      <span>Distribuidor oficial VEKA · CORTIZO · SAXUN</span>
+    </div>
+  </div>
 </footer>
 
+<a class="fab" href="https://wa.me/34643143809?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20un%20presupuesto." target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.2 12C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2A11.8 11.8 0 0 0 12 .2C5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7c1.7.9 3.7 1.4 5.6 1.4 6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.4-8.3z"/></svg></a>
+
+<div class="mbar">
+  <a class="btn btn-light" href="tel:+34643143809"><i data-lucide="phone" class="ico"></i>Llamar</a>
+  <a class="btn btn-wa" href="https://wa.me/34643143809?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20un%20presupuesto%20para%20mi%20proyecto%20en%20Mallorca." target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
 <script>
-// ECharts
-var stackedChart = echarts.init(document.getElementById('stackedBarChart'));
-stackedChart.setOption({
-    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-    legend: { data: ['Ventana Antigua', 'Con Valauni'] },
-    xAxis: { type: 'category', data: ['Calefacción\ninvierno', 'Refrigeración\nverano', 'Infiltraciones\naire', 'Ganancias\nsolares'] },
-    yAxis: { type: 'value', name: 'kWh pérdidos' },
-    series: [
-        { name: 'Ventana Antigua', type: 'bar', data: [850, 720, 450, 260], itemStyle: { color: '#888888' } },
-        { name: 'Con Valauni', type: 'bar', data: [210, 175, 110, 65], itemStyle: { color: '#1A1A1A' } }
-    ]
-});
+// Icons
+if (window.lucide) lucide.createIcons();
 
-var lineChart = echarts.init(document.getElementById('lineChart'));
-lineChart.setOption({
-    tooltip: { trigger: 'axis', formatter: function(params) {
-        let result = params[0].name + '<br/>';
-        params.forEach(p => {
-            result += p.marker + ' ' + p.seriesName + ': ' + p.value.toFixed(0) + '€<br/>';
-        });
-        return result;
-    }},
-    legend: { data: ['Sin cambio', 'Con Valauni'] },
-    xAxis: { type: 'category', data: Array.from({length: 15}, (_, i) => 'Año ' + (i + 1)) },
-    yAxis: { type: 'value', name: 'Euros (€)' },
-    series: [
-        { name: 'Sin cambio', type: 'line', data: [1200,2400,3600,4800,6000,7200,8400,9600,10800,12000,13200,14400,15600,16800,18000], lineStyle: { type: 'dashed', color: '#BBBBBB' }, itemStyle: { color: '#BBBBBB' } },
-        { name: 'Con Valauni', type: 'line', data: [-1800,-1354,-908,-462,-16,430,876,1322,1768,2214,2660,3106,3552,3998,4444], lineStyle: { width: 4, color: '#1A1A1A' }, itemStyle: { color: '#1A1A1A' }, markLine: { data: [{ xAxis: 6, label: { formatter: '✓ Amortización' } }] }, markArea: { data: [[{ xAxis: 6 }, { xAxis: 14 }]], itemStyle: { color: '#F0FFF0' } } }
-    ]
-});
+// Nav shadow + active link
+var nav = document.getElementById('nav');
+addEventListener('scroll', function(){ nav.classList.toggle('scrolled', scrollY > 8); }, {passive:true});
+var links = [].slice.call(document.querySelectorAll('.nav-links > li > a[href^="#"]'));
+var spy = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if (!e.isIntersecting) return;
+    links.forEach(function(l){ l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id); });
+  });
+}, {rootMargin:'-45% 0px -50% 0px'});
+['inicio','veka','cortizo'].forEach(function(id){ var s=document.getElementById(id); if(s) spy.observe(s); });
 
-var treemapChart = echarts.init(document.getElementById('treemapChart'));
-treemapChart.setOption({
-    tooltip: { formatter: function(info) { return info.name + ': ' + info.value + '%'; } },
-    series: [{
-        type: 'treemap',
-        data: [
-            { name: 'Ventanas y Puertas\n← Valauni actúa aquí', value: 25, itemStyle: { color: '#1A1A1A' }, label: { color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' } },
-            { name: 'Tejado / Cubierta\n25%', value: 25, itemStyle: { color: '#555555' }, label: { color: '#FFFFFF' } },
-            { name: 'Paredes\n20%', value: 20, itemStyle: { color: '#777777' }, label: { color: '#FFFFFF' } },
-            { name: 'Suelo\n10%', value: 10, itemStyle: { color: '#999999' } },
-            { name: 'Puentes Térmicos\n10%', value: 10, itemStyle: { color: '#BBBBBB' } },
-            { name: 'Infiltraciones\n10%', value: 10, itemStyle: { color: '#DDDDDD' } }
-        ]
-    }]
-});
+// Products dropdown (click, keyboard, hover on mouse)
+var dd = document.getElementById('dd'), ddBtn = dd.querySelector('button');
+function setDD(open){ open ? dd.setAttribute('data-open','') : dd.removeAttribute('data-open'); ddBtn.setAttribute('aria-expanded', open); }
+ddBtn.addEventListener('click', function(){ setDD(!dd.hasAttribute('data-open')); });
+if (matchMedia('(hover:hover) and (pointer:fine)').matches){
+  var t; dd.addEventListener('mouseenter', function(){ clearTimeout(t); setDD(true); });
+  dd.addEventListener('mouseleave', function(){ t = setTimeout(function(){ setDD(false); }, 120); });
+}
+dd.addEventListener('click', function(e){ if (e.target.closest('.dd-menu a')) setDD(false); });
+document.addEventListener('click', function(e){ if (!dd.contains(e.target)) setDD(false); });
+
+// Mobile drawer
+var burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+function setDrawer(open){
+  open ? drawer.setAttribute('data-open','') : drawer.removeAttribute('data-open');
+  burger.setAttribute('aria-expanded', open);
+  burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  burger.innerHTML = '<i data-lucide="' + (open ? 'x' : 'menu') + '" class="ico"></i>';
+  if (window.lucide) lucide.createIcons();
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+burger.addEventListener('click', function(){ setDrawer(!drawer.hasAttribute('data-open')); });
+drawer.addEventListener('click', function(e){ if (e.target.closest('a')) setDrawer(false); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ setDD(false); if (drawer.hasAttribute('data-open')) setDrawer(false); } });
+
+// Reveal on scroll
+var rv = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target); } });
+}, {rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('[data-reveal]').forEach(function(el){ rv.observe(el); });
 
 // Calculator
+var fmt = new Intl.NumberFormat('es-ES');
 var slider = document.getElementById('energySlider');
-var energyValue = document.getElementById('energyValue');
-var saving20 = document.getElementById('saving20');
-var saving30 = document.getElementById('saving30');
-var saving40 = document.getElementById('saving40');
-var amortization = document.getElementById('amortization');
-
-slider.addEventListener('input', function() {
-    var value = parseInt(this.value);
-    energyValue.textContent = value;
-    saving20.textContent = Math.round(value * 0.20) + '€';
-    saving30.textContent = Math.round(value * 0.30) + '€';
-    saving40.textContent = Math.round(value * 0.40) + '€';
-    var avgSaving = value * 0.35;
-    var years = Math.round(5000 / avgSaving);
-    amortization.textContent = years + ' años';
+slider.addEventListener('input', function(){
+  var v = parseInt(this.value, 10);
+  document.getElementById('energyValue').innerHTML = fmt.format(v) + '<small>€/año</small>';
+  document.getElementById('saving20').textContent = fmt.format(Math.round(v * .20)) + ' €';
+  document.getElementById('saving30').textContent = fmt.format(Math.round(v * .30)) + ' €';
+  document.getElementById('saving40').textContent = fmt.format(Math.round(v * .40)) + ' €';
+  document.getElementById('amortization').textContent = Math.round(5000 / (v * .35)) + ' años';
 });
 
-// Responsive
-window.addEventListener('resize', function() {
-    stackedChart.resize();
-    lineChart.resize();
-    treemapChart.resize();
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
+// Charts (load when visible)
+window.addEventListener('DOMContentLoaded', function(){
+  if (!window.echarts) return;
+  var base = { textStyle:{ fontFamily:'Inter, sans-serif', color:'#3B3C44' }, grid:{ left:56, right:24, top:48, bottom:56 } };
+  var charts = [];
+  function make(id, opt){ var c = echarts.init(document.getElementById(id)); c.setOption(Object.assign({}, base, opt)); charts.push(c); }
+  var defs = {
+    stackedBarChart: {
+      tooltip:{ trigger:'axis', axisPointer:{ type:'shadow' } },
+      legend:{ data:['Ventana antigua','Con Valauni'], top:0 },
+      xAxis:{ type:'category', data:['Calefacción\ninvierno','Refrigeración\nverano','Infiltraciones\naire','Ganancias\nsolares'] },
+      yAxis:{ type:'value', name:'kWh perdidos' },
+      series:[
+        { name:'Ventana antigua', type:'bar', data:[850,720,450,260], itemStyle:{ color:'#B8B5AE', borderRadius:[3,3,0,0] } },
+        { name:'Con Valauni', type:'bar', data:[210,175,110,65], itemStyle:{ color:'#191919', borderRadius:[3,3,0,0] } }
+      ]
+    },
+    lineChart: {
+      tooltip:{ trigger:'axis', valueFormatter:function(v){ return fmt.format(Math.round(v)) + ' €'; } },
+      legend:{ data:['Sin cambio','Con Valauni'], top:0 },
+      xAxis:{ type:'category', data:Array.from({length:15}, function(_, i){ return 'Año ' + (i + 1); }) },
+      yAxis:{ type:'value', name:'Euros (€)' },
+      series:[
+        { name:'Sin cambio', type:'line', data:[1200,2400,3600,4800,6000,7200,8400,9600,10800,12000,13200,14400,15600,16800,18000], lineStyle:{ type:'dashed', color:'#9C9890' }, itemStyle:{ color:'#9C9890' } },
+        { name:'Con Valauni', type:'line', data:[-1800,-1354,-908,-462,-16,430,876,1322,1768,2214,2660,3106,3552,3998,4444], lineStyle:{ width:4, color:'#191919' }, itemStyle:{ color:'#191919' },
+          markLine:{ symbol:'none', lineStyle:{ color:'#7E6128' }, data:[{ xAxis:6, label:{ formatter:'Amortización', color:'#7E6128' } }] },
+          markArea:{ data:[[{ xAxis:6 },{ xAxis:14 }]], itemStyle:{ color:'#F3ECDD' } } }
+      ]
+    },
+    treemapChart: {
+      tooltip:{ formatter:function(i){ return i.name.split('\n')[0] + ': ' + i.value + ' %'; } },
+      series:[{ type:'treemap', roam:false, nodeClick:false, breadcrumb:{ show:false }, itemStyle:{ gapWidth:2, borderColor:'#fff' }, data:[
+        { name:'Ventanas y puertas\nValauni actúa aquí', value:25, itemStyle:{ color:'#C8A96E' }, label:{ color:'#191919', fontSize:16, fontWeight:'bold' } },
+        { name:'Tejado / cubierta\n25 %', value:25, itemStyle:{ color:'#191919' } },
+        { name:'Paredes\n20 %', value:20, itemStyle:{ color:'#3A4148' } },
+        { name:'Suelo\n10 %', value:10, itemStyle:{ color:'#5A646C' } },
+        { name:'Puentes térmicos\n10 %', value:10, itemStyle:{ color:'#76818A' } },
+        { name:'Infiltraciones\n10 %', value:10, itemStyle:{ color:'#949EA6' } }
+      ] }]
+    }
+  };
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ make(e.target.id, defs[e.target.id]); cio.unobserve(e.target); } });
+  }, {rootMargin:'200px'});
+  Object.keys(defs).forEach(function(id){ cio.observe(document.getElementById(id)); });
+  addEventListener('resize', function(){ charts.forEach(function(c){ c.resize(); }); });
 });
 </script>
-
 </body>
 </html>
